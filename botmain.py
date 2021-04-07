@@ -58,10 +58,6 @@ async def send(ctx, *args):
     if(acc.currentDepositI(str(ctx.author)) < int(args[1])):
         await ctx.send("```계좌 잔액보다 송금 금액이 많습니다.```")
         return
-#    if int(args[1]) < 0:
-#        if str(ctx.author) not in adminlist:
-#            return
-    
     
     acc.updateMoney(str(ctx.author), -int(args[1]))
     acc.updateMoney(str(args[0]), int(args[1]))
