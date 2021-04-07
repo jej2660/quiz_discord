@@ -26,7 +26,7 @@ async def on_ready():
 
 @bot.command(name="도움말")
 async def manpage(ctx):
-    string = "```---돈 관련---\n!돈, !시세, !매도, !매수, !송금, !도박, !랭킹, !31, !홀짝,```"
+    string = "```---돈 관련---\n!돈, !시세, !매도, !매수, !송금, !도박, !랭킹, !31, !홀짝, !구제\n\n --QUIZ Evnet--\n !상점```"
     await ctx.send(string)
 @bot.command(name="시세")
 async def quote(ctx, *args):
@@ -175,10 +175,26 @@ async def cheat(ctx, *args):
     if str(ctx.author) not in adminlist:
         return
     acc.console(str(args[0]))
-@bot.command(name="shop")
+@bot.command(name="상점")
 async def shoplist(ctx, *args):
     if len(args) == 0:
-        ctx.send("```1. Flag 5000000$ \n 2.Coffe 100000$```")
+        ctx.send("```1. Flag 5,000,000$ \n 2.Coffee 100,000$```")
+    choice = int(args[0])
+    namest = str(ctx.author)
+    if choice == 1:
+        if acc.currentDepositI(namest) >= 5000000:
+            data = os.getenv("SECRET")
+            await ctx.send(str(data))
+            await ctx.send("SgOm에게 해당코드를 전달해주세요!")
+        else:
+            await ctx.send("계좌 잔액이 부족합니다." + acc.currentDeposit(namest))
+    elif choice == 2:
+        if acc.currentDepositI(namest) >= 100000:
+            data = os.getenv("COFFEE")
+            await ctx.send(str(data))
+            await ctx.send("SgOm에게 해당코드를 전달해주세요!")
+        else:
+            await ctx.send("계좌 잔액이 부족합니다." + acc.currentDeposit(namest))
 @bot.command(name='31')
 async def beskinra(ctx, *args):
     if len(args) == 0:
